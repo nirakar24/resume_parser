@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Relevance Result</title>
+
+    <style>
+        /* Apply dark theme and center the content */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        /* Container styling */
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        strong {
+            color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Result section */
+        .result-message {
+            font-size: 20px;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .result-message.success {
+            background-color: #28a745;
+        }
+
+        .result-message.failure {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Resume Analysis Result</h1>
+        
+        <p class="result-message {% if relevant %}success{% else %}failure{% endif %}">
+            {{ result_message }}
+        </p>
+
+        <h2>Extracted Resume Data:</h2>
+        <ul>
+            <li><strong>Skills:</strong> {{ resume_data.skills }}</li>
+            <li><strong>Experience:</strong> {{ resume_data.experience }}</li>
+        </ul>
+
+        <a href="/">Go Back</a>
+    </div>
+
+</body>
+</html>

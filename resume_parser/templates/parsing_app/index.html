@@ -1,0 +1,111 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Parsing Tool</title>
+    
+    <style>
+        /* Apply dark theme and center everything */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url("{% static 'images/background.jpg' %}"); /* Add background image */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Center the form in a container */
+        .form-container {
+            background: rgba(0, 0, 0, 0.7); /* Semi-transparent background for the form */
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .form-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            background-color: #333;
+            color: #f0f0f0;
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 10px auto;
+            color: #f0f0f0;
+        }
+
+        input[type="submit"] {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+        }
+
+        .result-success {
+            background-color: #28a745;
+        }
+
+        .result-failure {
+            background-color: #dc3545;
+        }
+
+        .result-message p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2 class="form-title">Resume Parsing Tool</h2>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <textarea name="job_description" rows="5" placeholder="Enter Job Description"></textarea>
+        <input type="file" name="resume" required />
+        <input type="submit" value="Parse Resume">
+    </form>
+    
+    {% if resume_data %}
+        <div class="result-message {% if relevant %}result-success{% else %}result-failure{% endif %}">
+            <p>{{ result_message }}</p>
+            <p><strong>Resume Data Extracted:</strong> {{ resume_data }}</p>
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
